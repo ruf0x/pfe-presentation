@@ -23,13 +23,53 @@ import {
   SoaMlDlSlide,
   SoaLlmWorksSlide,
   SoaGapSlide,
+  ContributionMotivationSlide,
+  ContributionArchitectureSlide,
+  ContributionDatasetSlide,
+  ContributionDatasetAnalysisSlide,
+  ContributionPreprocessingSlide,
+  ContributionFinetuningStrategySlide,
+  ContributionFinetuningPipelineSlide,
+  ContributionStage1ResultsSlide,
+  ContributionStage1ResultsSummarySlide,
+  ContributionStage1PlotsSlide,
+  ContributionStage2PromptingSlide,
+  ContributionStage2ResultsSlide,
+  ContributionPipelinePerfSlide,
+  ContributionDashboardSlide,
+  ContributionDashboardPanelSlide,
+  ContributionDiagramSlide,
+  ContributionRelatedWorkComparisonSlide,
+  ClosingTextSlide,
   ArchitectureSlide,
   DatasetSlide,
   FinetuningSlide,
-  ResultsSlide,
   ConclusionSlide
 } from '@/components/slides';
 import { presentationData } from '@/lib/presentationData';
+
+const presentationSections = presentationData
+  .map((slide, index) => ({ slide, index }))
+  .filter(({ slide }) => slide.type === 'section-divider')
+  .map(({ slide, index }) => ({
+    index,
+    num: (slide as { num: string }).num,
+    title: (slide as { title: string }).title,
+  }));
+
+const sectionNavLabels: Record<string, string> = {
+  Introduction: 'Intro',
+  Background: 'Background',
+  'State-of-the-Art': 'SotA',
+  Contribution: 'Contrib.',
+  Conclusion: 'Conclusion',
+};
+
+function getActiveSectionIndex(currentSlide: number) {
+  return presentationSections.reduce((active, section, i) => {
+    return currentSlide >= section.index ? i : active;
+  }, 0);
+}
 
 export function PresentationComponent() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -38,6 +78,7 @@ export function PresentationComponent() {
   const [slideInput, setSlideInput] = useState('1');
   const isTransitioningRef = useRef(false);
   const totalSlides = presentationData.length;
+  const activeSectionIndex = getActiveSectionIndex(currentSlide);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -196,6 +237,148 @@ export function PresentationComponent() {
             contribution={slide.contribution}
           />
         );
+      case 'contribution-motivation':
+        return <ContributionMotivationSlide title={slide.title} cards={slide.cards} />;
+      case 'contribution-architecture':
+        return (
+          <ContributionArchitectureSlide
+            title={slide.title}
+            image={slide.image}
+            caption={slide.caption}
+          />
+        );
+      case 'contribution-dataset':
+        return (
+          <ContributionDatasetSlide
+            title={slide.title}
+            sources={slide.sources}
+            summary={slide.summary}
+          />
+        );
+      case 'contribution-dataset-analysis':
+        return (
+          <ContributionDatasetAnalysisSlide
+            title={slide.title}
+            metrics={slide.metrics}
+            binaryNotes={slide.binaryNotes}
+            conclusion={slide.conclusion}
+            images={slide.images}
+          />
+        );
+      case 'contribution-preprocessing':
+        return (
+          <ContributionPreprocessingSlide
+            title={slide.title}
+            intro={slide.intro}
+            fields={slide.fields}
+            sample={slide.sample}
+          />
+        );
+      case 'contribution-finetuning-strategy':
+        return (
+          <ContributionFinetuningStrategySlide
+            title={slide.title}
+            columns={slide.columns}
+            note={slide.note}
+          />
+        );
+      case 'contribution-finetuning-pipeline':
+        return (
+          <ContributionFinetuningPipelineSlide
+            title={slide.title}
+            steps={slide.steps}
+            hyperparams={slide.hyperparams}
+          />
+        );
+      case 'contribution-stage1-results':
+        return (
+          <ContributionStage1ResultsSlide
+            title={slide.title}
+            rows={slide.rows}
+            takeaways={slide.takeaways}
+            images={slide.images}
+          />
+        );
+      case 'contribution-stage1-results-summary':
+        return (
+          <ContributionStage1ResultsSummarySlide
+            title={slide.title}
+            rows={slide.rows}
+            takeaways={slide.takeaways}
+          />
+        );
+      case 'contribution-stage1-plots':
+        return (
+          <ContributionStage1PlotsSlide
+            title={slide.title}
+            images={slide.images}
+          />
+        );
+      case 'contribution-stage2-prompting':
+        return (
+          <ContributionStage2PromptingSlide
+            title={slide.title}
+            whyNoFinetune={slide.whyNoFinetune}
+            outputSchema={slide.outputSchema}
+            rows={slide.rows}
+            reasoning={slide.reasoning}
+          />
+        );
+      case 'contribution-stage2-results':
+        return (
+          <ContributionStage2ResultsSlide
+            title={slide.title}
+            benchRows={slide.benchRows}
+            deployStats={slide.deployStats}
+            escalationRows={slide.escalationRows}
+            triggers={slide.triggers}
+          />
+        );
+      case 'contribution-pipeline-perf':
+        return (
+          <ContributionPipelinePerfSlide
+            title={slide.title}
+            rows={slide.rows}
+            bullets={slide.bullets}
+            throughputStat={slide.throughputStat}
+            throughputLabel={slide.throughputLabel}
+          />
+        );
+      case 'contribution-dashboard':
+        return (
+          <ContributionDashboardSlide
+            title={slide.title}
+            stack={slide.stack}
+            panels={slide.panels}
+          />
+        );
+      case 'contribution-dashboard-panel':
+        return (
+          <ContributionDashboardPanelSlide
+            title={slide.title}
+            stack={slide.stack}
+            panel={slide.panel}
+          />
+        );
+      case 'contribution-diagram':
+        return (
+          <ContributionDiagramSlide
+            title={slide.title}
+            image={slide.image}
+            caption={slide.caption}
+          />
+        );
+      case 'contribution-related-work-comparison':
+        return (
+          <ContributionRelatedWorkComparisonSlide
+            title={slide.title}
+            headers={slide.headers}
+            rows={slide.rows}
+            note={slide.note}
+          />
+        );
+      case 'closing-text':
+        return <ClosingTextSlide title={slide.title} subtitle={slide.subtitle} />;
       case 'architecture':
         return (
           <ArchitectureSlide
@@ -219,14 +402,6 @@ export function PresentationComponent() {
             title={slide.title}
             approach={slide.approach}
             hyperparameters={slide.hyperparameters}
-          />
-        );
-      case 'results':
-        return (
-          <ResultsSlide
-            title={slide.title}
-            stage1={slide.stage1}
-            stage2={slide.stage2}
           />
         );
       case 'conclusion':
@@ -253,15 +428,44 @@ export function PresentationComponent() {
 
       {/* Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 h-16 bg-slate-900/80 backdrop-blur-md z-50 border-b border-cyan-400/20">
-        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 h-full flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
               <Zap size={24} className="text-slate-900" />
             </div>
-            <div className="text-cyan-300 font-bold tracking-wider">WAZUH CLASSIFIER</div>
+            <div className="hidden sm:block text-cyan-300 font-bold tracking-wider">WAZUH CLASSIFIER</div>
+          </div>
+
+          <div className="flex flex-1 items-center justify-center gap-1 min-w-0">
+            {presentationSections.map((section, i) => {
+              const isActive = i === activeSectionIndex;
+              const label = sectionNavLabels[section.title] ?? section.title;
+
+              return (
+                <button
+                  key={section.title}
+                  type="button"
+                  onClick={() => goToSlide(section.index)}
+                  disabled={isTransitioning}
+                  title={section.title}
+                  aria-label={`Go to ${section.title}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`rounded-lg border text-xs font-medium whitespace-nowrap transition-all duration-200 disabled:opacity-50 px-2 py-1.5 md:px-2.5 ${
+                    isActive
+                      ? 'bg-cyan-400/15 border-cyan-400/60 text-cyan-200 shadow-sm shadow-cyan-500/10'
+                      : 'bg-slate-800/40 border-cyan-400/20 text-gray-400 hover:bg-cyan-400/10 hover:border-cyan-400/40 hover:text-cyan-200'
+                  }`}
+                >
+                  <span className={`font-mono md:mr-1.5 ${isActive ? 'text-cyan-300' : 'text-cyan-500/70'}`}>
+                    {section.num}
+                  </span>
+                  <span className="hidden md:inline">{label}</span>
+                </button>
+              );
+            })}
           </div>
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 lg:gap-6 shrink-0">
             <div className="text-gray-400 text-sm font-mono">
               <span className="text-cyan-300">{currentSlide + 1}</span>
               <span className="text-gray-500">/</span>

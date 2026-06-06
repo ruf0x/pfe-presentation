@@ -22,6 +22,26 @@ export {
   SoaLlmWorksSlide,
   SoaGapSlide,
 } from './StateOfArtSlides';
+export {
+  ContributionMotivationSlide,
+  ContributionArchitectureSlide,
+  ContributionDatasetSlide,
+  ContributionDatasetAnalysisSlide,
+  ContributionPreprocessingSlide,
+  ContributionFinetuningStrategySlide,
+  ContributionFinetuningPipelineSlide,
+  ContributionStage1ResultsSlide,
+  ContributionStage1ResultsSummarySlide,
+  ContributionStage1PlotsSlide,
+  ContributionStage2PromptingSlide,
+  ContributionStage2ResultsSlide,
+  ContributionPipelinePerfSlide,
+  ContributionDashboardSlide,
+  ContributionDashboardPanelSlide,
+  ContributionDiagramSlide,
+  ContributionRelatedWorkComparisonSlide,
+  ClosingTextSlide,
+} from './ContributionSlides';
 export { ArchitectureSlide } from './ArchitectureSlide';
 export { DatasetSlide } from './DatasetSlide';
 export { FinetuningSlide } from './FinetuningSlide';
