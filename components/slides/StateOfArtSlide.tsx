@@ -17,7 +17,7 @@ export function StateOfArtSlide({ title, items, quote }: StateOfArtSlideProps) {
   return (
     <div>
       <SlideHeader title={title} />
-      <div className="grid grid-cols-2 gap-4 mb-8">
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:mb-8 md:grid-cols-2">
         {items.map((item, i) => (
           <ContentCard
             key={i}

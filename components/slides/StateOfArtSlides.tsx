@@ -83,7 +83,7 @@ function CapabilityBadge({ capability }: { capability: string }) {
 
   return (
     <span
-      className={`inline-flex h-8 min-w-20 items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-black uppercase tracking-wide ${
+      className={`inline-flex h-7 min-w-16 items-center justify-center gap-1 rounded-full border px-2 text-[10px] font-black uppercase tracking-wide sm:h-8 sm:min-w-20 sm:gap-1.5 sm:px-3 sm:text-xs ${
         isAvailable
           ? 'border-cyan-300/45 bg-cyan-400/15 text-cyan-100 shadow-sm shadow-cyan-400/15'
           : 'border-red-300/30 bg-red-500/10 text-red-200'
@@ -186,8 +186,8 @@ export function SoaGapSlide({ title, headers, rows, gap, contribution }: SoaGapS
     <div className="w-full">
       <SlideHeader title={title} />
       <Panel>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div className="presentation-slide-scroll overflow-x-auto">
+          <table className="w-full min-w-[640px] text-xs sm:text-sm">
             <thead>
               <tr className="border-b-2 border-cyan-400/40 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
                 {headers.map((header) => (

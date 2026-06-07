@@ -23,7 +23,7 @@ export function FoundationSlide({ title, wazuh, quote }: FoundationSlideProps) {
       <SlideHeader title={title} />
       <div className="grid grid-cols-1 md:grid-cols-5 gap-8 my-auto">
         <div className="md:col-span-2 flex flex-col justify-center">
-          <h3 className="text-3xl font-extrabold text-cyan-300 mb-4">{wazuh.title}</h3>
+          <h3 className="mb-3 text-xl font-extrabold text-cyan-300 sm:mb-4 sm:text-3xl">{wazuh.title}</h3>
           <p className="text-gray-300 text-sm leading-relaxed mb-6">{wazuh.intro}</p>
           <div className="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/20 text-cyan-200 text-xs font-mono">
             <div className="flex items-center justify-between mb-2">

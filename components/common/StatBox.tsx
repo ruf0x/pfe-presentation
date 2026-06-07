@@ -13,7 +13,7 @@ export function StatBox({ number, label, variant = 'default' }: StatBoxProps) {
   const numberColor = variant === 'highlight' ? 'text-red-300' : 'text-cyan-300';
 
   return (
-    <div className={`group relative overflow-hidden rounded-xl p-8 transition-all duration-300
+    <div className={`group relative overflow-hidden rounded-xl p-5 transition-all duration-300 sm:p-8
       bg-gradient-to-br ${bgGradient}
       border ${borderColor} hover:border-cyan-400/70
       hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-105
@@ -28,7 +28,7 @@ export function StatBox({ number, label, variant = 'default' }: StatBoxProps) {
         rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur"></div>
 
       <div className="relative z-10 text-center">
-        <div className={`text-5xl font-black ${numberColor} mb-3 tracking-tight
+        <div className={`text-3xl font-black sm:text-5xl ${numberColor} mb-2 sm:mb-3 tracking-tight
           group-hover:scale-110 transition-transform duration-300 drop-shadow-lg`}>
           {number}
         </div>

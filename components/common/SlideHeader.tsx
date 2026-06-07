@@ -5,16 +5,16 @@ interface SlideHeaderProps {
 
 export function SlideHeader({ title, subtitle }: SlideHeaderProps) {
   return (
-    <div className="mb-10">
-      <div className="flex items-center gap-4 mb-4">
-        <div className="h-1 w-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
-        <h2 className="text-5xl font-black text-cyan-300 tracking-tight drop-shadow-lg">
+    <div className="mb-4 md:mb-8 lg:mb-10">
+      <div className="mb-3 flex items-start gap-2 md:mb-4 md:items-center md:gap-4">
+        <div className="mt-2 h-1 w-8 shrink-0 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 md:mt-0 md:w-12" />
+        <h2 className="text-lg font-black leading-tight tracking-tight text-cyan-300 drop-shadow-lg sm:text-2xl md:text-3xl lg:text-5xl">
           {title}
         </h2>
       </div>
-      <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent rounded-full mb-6"></div>
+      <div className="mb-4 h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent md:mb-6 md:w-24" />
       {subtitle && (
-        <p className="text-gray-400 mt-4 text-lg leading-relaxed max-w-3xl">
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-gray-400 md:mt-4 md:text-lg">
           {subtitle}
         </p>
       )}

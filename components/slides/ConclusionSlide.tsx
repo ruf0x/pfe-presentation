@@ -37,10 +37,10 @@ export function ConclusionSlide({
     <div>
       <SlideHeader title={title} />
 
-      <h3 className="text-2xl font-bold text-cyan-400 mb-4">Key Contributions</h3>
-      <ul className="space-y-3 mb-8">
+      <h3 className="mb-3 text-lg font-bold text-cyan-400 sm:mb-4 sm:text-2xl">Key Contributions</h3>
+      <ul className="mb-6 space-y-2 sm:mb-8 sm:space-y-3">
         {contributionItems.map((item, i) => (
-          <li key={i} className="text-gray-300 flex items-start">
+          <li key={i} className="flex items-start text-sm text-gray-300 sm:text-base">
             <span className="text-cyan-400 mr-3 font-bold">▸</span>
             <span>
               <strong className="text-cyan-400">{item.label}:</strong> {item.description}
@@ -49,10 +49,10 @@ export function ConclusionSlide({
         ))}
       </ul>
 
-      <h3 className="text-2xl font-bold text-cyan-400 mb-4">Future Perspectives</h3>
-      <ul className="space-y-3 mb-8">
+      <h3 className="mb-3 text-lg font-bold text-cyan-400 sm:mb-4 sm:text-2xl">Future Perspectives</h3>
+      <ul className="mb-6 space-y-2 sm:mb-8 sm:space-y-3">
         {futureItems.map((item, i) => (
-          <li key={i} className="text-gray-300 flex items-start">
+          <li key={i} className="flex items-start text-sm text-gray-300 sm:text-base">
             <span className="text-cyan-400 mr-3 font-bold">▸</span>
             <span>
               <strong className="text-cyan-400">{item.label}:</strong> {item.description}

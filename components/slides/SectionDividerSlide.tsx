@@ -26,7 +26,7 @@ function CircuitLines({ position }: { position: 'top-left' | 'bottom-right' }) {
 
 export function SectionDividerSlide({ num, title }: SectionDividerSlideProps) {
   return (
-    <div className="relative h-full min-h-[420px] w-full overflow-hidden text-cyan-200">
+    <div className="relative h-full min-h-[240px] w-full overflow-hidden text-cyan-200 sm:min-h-[320px] md:min-h-[420px]">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
       <div className="absolute inset-x-12 top-1/2 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
       <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -36,12 +36,12 @@ export function SectionDividerSlide({ num, title }: SectionDividerSlideProps) {
       <CircuitLines position="top-left" />
       <CircuitLines position="bottom-right" />
 
-      <div className="absolute inset-0 z-10 flex items-center justify-center px-8">
-        <div className="flex items-center gap-4 md:gap-5">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-cyan-300/50 bg-gradient-to-br from-cyan-400 to-blue-500 text-2xl font-black text-slate-950 shadow-lg shadow-cyan-400/25 md:h-14 md:w-14">
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-4 sm:px-8">
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4 md:gap-5">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-cyan-300/50 bg-gradient-to-br from-cyan-400 to-blue-500 text-xl font-black text-slate-950 shadow-lg shadow-cyan-400/25 sm:h-12 sm:w-12 sm:text-2xl md:h-14 md:w-14">
             {num}
           </div>
-          <h2 className="bg-gradient-to-r from-cyan-200 via-blue-200 to-cyan-300 bg-clip-text text-4xl font-black uppercase tracking-normal text-transparent drop-shadow-lg md:text-6xl">
+          <h2 className="bg-gradient-to-r from-cyan-200 via-blue-200 to-cyan-300 bg-clip-text text-center text-2xl font-black uppercase tracking-normal text-transparent drop-shadow-lg sm:text-left sm:text-4xl md:text-6xl">
             {title}
           </h2>
         </div>

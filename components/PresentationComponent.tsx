@@ -77,8 +77,41 @@ export function PresentationComponent() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [slideInput, setSlideInput] = useState('1');
   const isTransitioningRef = useRef(false);
+  const touchStartXRef = useRef<number | null>(null);
   const totalSlides = presentationData.length;
   const activeSectionIndex = getActiveSectionIndex(currentSlide);
+
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartXRef.current = e.touches[0]?.clientX ?? null;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (touchStartXRef.current === null || isTransitioningRef.current) return;
+
+      const touchEndX = e.changedTouches[0]?.clientX;
+      if (touchEndX === undefined) return;
+
+      const deltaX = touchEndX - touchStartXRef.current;
+      touchStartXRef.current = null;
+
+      if (Math.abs(deltaX) < 50) return;
+
+      if (deltaX < 0) {
+        goToSlide(Math.min(currentSlide + 1, totalSlides - 1));
+      } else {
+        goToSlide(Math.max(currentSlide - 1, 0));
+      }
+    };
+
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [currentSlide, totalSlides]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -94,6 +127,41 @@ export function PresentationComponent() {
   useEffect(() => {
     setSlideInput(String(currentSlide + 1));
   }, [currentSlide]);
+
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      if (Math.abs(deltaX) < 60 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      if (deltaX < 0) {
+        goToSlide(Math.min(currentSlide + 1, totalSlides - 1));
+      } else {
+        goToSlide(Math.max(currentSlide - 1, 0));
+      }
+    };
+
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [currentSlide, totalSlides]);
 
   const goToSlide = (targetSlide: number) => {
     if (isTransitioningRef.current || targetSlide === currentSlide) return;
@@ -419,24 +487,85 @@ export function PresentationComponent() {
   };
 
   return (
-    <div className="h-screen overflow-hidden px-12 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="presentation-root flex h-dvh min-h-dvh flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-2 sm:px-4 md:px-8 lg:px-12">
       {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute left-1/4 top-0 h-48 w-48 animate-pulse rounded-full bg-cyan-500/10 blur-3xl sm:h-96 sm:w-96" />
+        <div className="absolute bottom-0 right-1/4 h-48 w-48 animate-pulse rounded-full bg-blue-500/10 blur-3xl sm:h-96 sm:w-96" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 h-16 bg-slate-900/80 backdrop-blur-md z-50 border-b border-cyan-400/20">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 h-full flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
-              <Zap size={24} className="text-slate-900" />
+      <nav className="fixed left-0 right-0 top-0 z-50 border-b border-cyan-400/20 bg-slate-900/90 backdrop-blur-md">
+        <div className="mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-6">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 sm:h-10 sm:w-10">
+                <Zap size={18} className="text-slate-900 sm:hidden" />
+                <Zap size={24} className="hidden text-slate-900 sm:block" />
+              </div>
+              <div className="hidden text-sm font-bold tracking-wider text-cyan-300 sm:block md:text-base">
+                WAZUH CLASSIFIER
+              </div>
             </div>
-            <div className="hidden sm:block text-cyan-300 font-bold tracking-wider">WAZUH CLASSIFIER</div>
+
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-3 lg:gap-4">
+              <div className="font-mono text-xs text-gray-400 sm:text-sm">
+                <span className="text-cyan-300">{currentSlide + 1}</span>
+                <span className="text-gray-500">/</span>
+                <span>{presentationData.length}</span>
+              </div>
+
+              <div className="hidden items-center rounded-lg border border-cyan-400/25 bg-slate-800/40 px-2 py-1 sm:flex">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={slideInput}
+                  onChange={(e) => setSlideInput(e.target.value)}
+                  onBlur={submitSlideInput}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.currentTarget.blur();
+                    }
+                  }}
+                  className="h-7 w-12 rounded-md border border-cyan-400/25 bg-slate-950/70 px-2 text-center text-xs font-mono text-cyan-200 outline-none transition-colors focus:border-cyan-300 sm:h-8 sm:w-14 sm:text-sm"
+                  aria-label="Go to slide number"
+                />
+              </div>
+
+              <button
+                onClick={prevSlide}
+                disabled={isTransitioning || currentSlide === 0}
+                className="rounded-lg border border-cyan-400/30 bg-slate-800/50 p-1.5 text-cyan-300 transition-all duration-200 hover:border-cyan-400/60 hover:bg-cyan-400/10 hover:text-cyan-200 disabled:opacity-50 sm:p-2"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={18} className="sm:hidden" />
+                <ChevronLeft size={20} className="hidden sm:block" />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                disabled={isTransitioning || currentSlide === totalSlides - 1}
+                className="rounded-lg border border-cyan-400/30 bg-slate-800/50 p-1.5 text-cyan-300 transition-all duration-200 hover:border-cyan-400/60 hover:bg-cyan-400/10 hover:text-cyan-200 disabled:opacity-50 sm:p-2"
+                aria-label="Next slide"
+              >
+                <ChevronRight size={18} className="sm:hidden" />
+                <ChevronRight size={20} className="hidden sm:block" />
+              </button>
+
+              <button
+                onClick={firstSlide}
+                disabled={isTransitioning || currentSlide === 0}
+                className="rounded-lg border border-cyan-400/30 bg-slate-800/50 p-1.5 text-cyan-300 transition-all duration-200 hover:border-cyan-400/60 hover:bg-cyan-400/10 hover:text-cyan-200 disabled:opacity-50 sm:p-2"
+                aria-label="Go to first slide"
+              >
+                <Home size={18} className="sm:hidden" />
+                <Home size={20} className="hidden sm:block" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-1 items-center justify-center gap-1 min-w-0">
+          <div className="presentation-nav-scroll mt-2 flex gap-1 overflow-x-auto pb-1 md:justify-center">
             {presentationSections.map((section, i) => {
               const isActive = i === activeSectionIndex;
               const label = sectionNavLabels[section.title] ?? section.title;
@@ -450,87 +579,30 @@ export function PresentationComponent() {
                   title={section.title}
                   aria-label={`Go to ${section.title}`}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`rounded-lg border text-xs font-medium whitespace-nowrap transition-all duration-200 disabled:opacity-50 px-2 py-1.5 md:px-2.5 ${
+                  className={`shrink-0 rounded-lg border px-2 py-1 text-[11px] font-medium whitespace-nowrap transition-all duration-200 disabled:opacity-50 sm:px-2.5 sm:py-1.5 sm:text-xs ${
                     isActive
-                      ? 'bg-cyan-400/15 border-cyan-400/60 text-cyan-200 shadow-sm shadow-cyan-500/10'
-                      : 'bg-slate-800/40 border-cyan-400/20 text-gray-400 hover:bg-cyan-400/10 hover:border-cyan-400/40 hover:text-cyan-200'
+                      ? 'border-cyan-400/60 bg-cyan-400/15 text-cyan-200 shadow-sm shadow-cyan-500/10'
+                      : 'border-cyan-400/20 bg-slate-800/40 text-gray-400 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-200'
                   }`}
                 >
-                  <span className={`font-mono md:mr-1.5 ${isActive ? 'text-cyan-300' : 'text-cyan-500/70'}`}>
+                  <span className={`font-mono sm:mr-1.5 ${isActive ? 'text-cyan-300' : 'text-cyan-500/70'}`}>
                     {section.num}
                   </span>
-                  <span className="hidden md:inline">{label}</span>
+                  <span className="hidden sm:inline md:hidden lg:inline">{label}</span>
                 </button>
               );
             })}
-          </div>
-          
-          <div className="flex items-center gap-3 lg:gap-6 shrink-0">
-            <div className="text-gray-400 text-sm font-mono">
-              <span className="text-cyan-300">{currentSlide + 1}</span>
-              <span className="text-gray-500">/</span>
-              <span>{presentationData.length}</span>
-            </div>
-
-            <div className="flex items-center rounded-lg border border-cyan-400/25 bg-slate-800/40 px-2 py-1">
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={slideInput}
-                onChange={(e) => setSlideInput(e.target.value)}
-                onBlur={submitSlideInput}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.currentTarget.blur();
-                  }
-                }}
-                className="h-8 w-14 rounded-md border border-cyan-400/25 bg-slate-950/70 px-2 text-center text-sm font-mono text-cyan-200 outline-none transition-colors focus:border-cyan-300"
-                aria-label="Go to slide number"
-              />
-            </div>
-
-            <button
-              onClick={prevSlide}
-              disabled={isTransitioning || currentSlide === 0}
-              className="p-2 rounded-lg bg-slate-800/50 border border-cyan-400/30 text-cyan-300 
-                hover:bg-cyan-400/10 hover:border-cyan-400/60 hover:text-cyan-200
-                transition-all duration-200 disabled:opacity-50"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            
-            <button
-              onClick={nextSlide}
-              disabled={isTransitioning || currentSlide === totalSlides - 1}
-              className="p-2 rounded-lg bg-slate-800/50 border border-cyan-400/30 text-cyan-300 
-                hover:bg-cyan-400/10 hover:border-cyan-400/60 hover:text-cyan-200
-                transition-all duration-200 disabled:opacity-50"
-            >
-              <ChevronRight size={20} />
-            </button>
-
-            <button
-              onClick={firstSlide}
-              disabled={isTransitioning || currentSlide === 0}
-              className="p-2 rounded-lg bg-slate-800/50 border border-cyan-400/30 text-cyan-300 
-                hover:bg-cyan-400/10 hover:border-cyan-400/60 hover:text-cyan-200
-                transition-all duration-200 disabled:opacity-50"
-              aria-label="Go to first slide"
-            >
-              <Home size={20} />
-            </button>
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
-      <div className="relative px-6 h-full pt-28 pb-10 flex items-center justify-center">
-        <div className={`max-w-5xl w-full transition-all duration-300 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-          <div className="bg-gradient-to-br from-slate-800/40 to-slate-900/40 rounded-2xl border border-cyan-400/20 
-            backdrop-blur-xl p-12 shadow-2xl shadow-cyan-500/10 h-full flex items-center justify-center overflow-hidden"
-            style={{ maxHeight: 'calc(100vh - 10rem)' }}>
-            {renderSlide()}
+      <div className="relative flex min-h-0 flex-1 flex-col pb-3 pt-[6.75rem] sm:pb-6 sm:pt-28 md:pt-[7.25rem]">
+        <div className={`mx-auto flex h-full w-full max-w-5xl min-h-0 flex-1 transition-all duration-300 ${isTransitioning ? 'scale-[0.98] opacity-0' : 'scale-100 opacity-100'}`}>
+          <div className="presentation-slide-scroll flex h-full w-full min-h-0 flex-col overflow-y-auto overflow-x-hidden rounded-xl border border-cyan-400/20 bg-gradient-to-br from-slate-800/40 to-slate-900/40 p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur-xl sm:rounded-2xl sm:p-6 md:p-8 lg:p-12">
+            <div className="w-full min-h-0 flex-1">
+              {renderSlide()}
+            </div>
           </div>
         </div>
       </div>

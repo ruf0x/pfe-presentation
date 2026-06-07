@@ -13,7 +13,7 @@ interface ContentsSlideProps {
 
 export function ContentsSlide({ title, items }: ContentsSlideProps) {
   return (
-    <div className="h-full w-full flex flex-col overflow-hidden py-2">
+    <div className="flex h-full w-full flex-col py-2">
       <div className="w-full max-w-5xl mx-auto flex h-full min-h-0 flex-col">
         <div className="shrink-0 mb-4 md:mb-5 text-center">
           <div className="h-1 w-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto mb-4"></div>
@@ -38,7 +38,7 @@ export function ContentsSlide({ title, items }: ContentsSlideProps) {
           {/* Center vertical line */}
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 via-cyan-400 to-transparent" />
 
-          <div className="h-full flex flex-col justify-center overflow-hidden">
+          <div className="flex h-full flex-col justify-center">
             <div className="space-y-5 md:space-y-7">
               {items.map((item, i) => {
                 const rowClass = i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse';

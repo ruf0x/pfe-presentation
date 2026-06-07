@@ -5,12 +5,12 @@ interface DataTableProps {
 
 export function DataTable({ headers, rows }: DataTableProps) {
   return (
-    <div className="overflow-x-auto mb-4">
-      <table className="w-full text-sm">
+    <div className="mb-4 overflow-x-auto presentation-slide-scroll">
+      <table className="w-full min-w-[480px] text-xs sm:text-sm">
         <thead>
           <tr className="border-b-2 border-cyan-400/40 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
             {headers.map((h, i) => (
-              <th key={i} className="text-cyan-300 font-bold p-4 text-left">
+              <th key={i} className="p-2 text-left font-bold text-cyan-300 sm:p-4">
                 {h}
               </th>
             ))}
@@ -26,7 +26,7 @@ export function DataTable({ headers, rows }: DataTableProps) {
               {row.map((cell, j) => (
                 <td 
                   key={j} 
-                  className="p-4 text-gray-400 group-hover:text-gray-300 transition-colors"
+                  className="p-2 text-gray-400 transition-colors group-hover:text-gray-300 sm:p-4"
                 >
                   {cell}
                 </td>

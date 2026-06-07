@@ -31,14 +31,14 @@ export function FinetuningSlide({
     <div>
       <SlideHeader title={title} />
       <h3 className="text-2xl font-bold text-cyan-400 mb-4">{approach.title}</h3>
-      <div className="grid grid-cols-2 gap-4 mb-8">
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:mb-8 md:grid-cols-2">
         {approach.items.map((item, i) => (
           <ContentCard key={i} title={item.title} description={item.desc} />
         ))}
       </div>
 
       <h3 className="text-2xl font-bold text-cyan-400 mb-4">Hardware & Hyperparameters</h3>
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
         <div>
           <h4 className="text-lg font-bold text-cyan-400 mb-3">Hardware</h4>
           <div className="space-y-2">

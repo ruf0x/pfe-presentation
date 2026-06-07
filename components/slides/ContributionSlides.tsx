@@ -141,7 +141,7 @@ export function ContributionArchitectureSlide({ title, image, caption }: Contrib
     <div className="flex h-full w-full flex-col">
       <SlideHeader title={title} />
       <div className="flex min-h-0 flex-1 items-center overflow-hidden rounded-xl border border-cyan-400/25 bg-slate-950/55 p-4">
-        <img src={image} alt="Two-stage Wazuh LLM alert analysis pipeline" className="h-full max-h-[480px] w-full object-contain" />
+        <img src={image} alt="Two-stage Wazuh LLM alert analysis pipeline" className="h-full max-h-[240px] w-full object-contain sm:max-h-[360px] md:max-h-[480px]" />
       </div>
     </div>
   );
@@ -167,7 +167,7 @@ export function ContributionDatasetSlide({ title, sources, summary }: Contributi
           </Panel>
         ))}
       </div>
-      <div className="mt-4 grid grid-cols-3 gap-3">
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {summary.map((item) => (
           <div key={item.label} className="rounded-lg border border-cyan-400/25 bg-cyan-500/10 p-3 text-center">
             <div className="text-2xl font-black text-cyan-200">{item.value}</div>
@@ -191,7 +191,7 @@ export function ContributionDatasetAnalysisSlide({
       <SlideHeader title={title} />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-[0.75fr_1.25fr]">
         <div className="space-y-3">
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {metrics.map((metric) => (
               <div key={metric.label} className="rounded-lg border border-cyan-400/25 bg-slate-950/45 p-2.5">
                 <div className="text-xl font-black text-cyan-200">{metric.value}</div>
@@ -214,7 +214,7 @@ export function ContributionDatasetAnalysisSlide({
             <BulletItems items={conclusion} />
           </Panel>
         </div>
-        <div className="grid min-h-[500px] grid-cols-1 gap-4">
+        <div className="grid min-h-[200px] grid-cols-1 gap-4 md:min-h-[500px]">
           <div className="flex min-h-0 items-center rounded-xl border border-cyan-400/25 bg-slate-950/55 p-3">
             <img src={images.donut} alt="AIT dataset dirb and benign dominance donut chart" className="h-full max-h-[260px] w-full object-contain" />
           </div>
@@ -240,7 +240,7 @@ export function ContributionPreprocessingSlide({ title, intro, fields, sample }:
           <p className="mb-3 text-sm leading-relaxed text-gray-300">{intro}</p>
           <div className="grid grid-cols-1 gap-2">
             {fields.map((field) => (
-              <div key={field.field} className="grid grid-cols-[150px_1fr] gap-3 rounded-lg border border-cyan-400/15 bg-slate-950/35 p-2.5">
+              <div key={field.field} className="grid grid-cols-1 gap-1.5 rounded-lg border border-cyan-400/15 bg-slate-950/35 p-2.5 sm:grid-cols-[150px_1fr] sm:gap-3">
                 <div className="font-mono text-xs font-bold text-cyan-200">{field.field}</div>
                 <div className="text-xs leading-relaxed text-gray-300">{field.reason}</div>
               </div>
@@ -286,7 +286,7 @@ export function ContributionFinetuningStrategySlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="mb-4 grid grid-cols-3 gap-4">
+      <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
         {columns.map((col) => (
           <Panel key={col.title} className={col.highlight ? 'border-cyan-300/50 bg-cyan-500/10' : ''}>
             <div className="mb-3 flex items-center gap-2">
@@ -334,7 +334,7 @@ export function ContributionFinetuningPipelineSlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-[1.4fr_0.6fr] gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_0.6fr]">
         <div className="space-y-2.5">
           {steps.map((step) => (
             <div key={step.num} className="grid grid-cols-[32px_1fr] gap-3 rounded-xl border border-cyan-400/20 bg-slate-900/55 p-3">
@@ -397,10 +397,10 @@ export function ContributionStage1ResultsSlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-[1fr_1fr] gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="space-y-3">
-          <Panel className="overflow-hidden p-0">
-            <table className="w-full text-xs">
+          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
+            <table className="w-full min-w-[520px] text-xs">
               <thead>
                 <tr className="border-b border-cyan-400/20 bg-slate-950/60">
                   {['Model', 'Acc', 'F1', 'TP Rec', 'FP Rec', 'Errors'].map((h) => (
@@ -432,7 +432,7 @@ export function ContributionStage1ResultsSlide({
             <BulletItems items={takeaways} />
           </Panel>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {[images.headline, images.perclass, images.confusion, images.baseline].map((src) => (
             <div key={src} className="flex items-center justify-center overflow-hidden rounded-xl border border-cyan-400/20 bg-slate-950/55 p-1.5">
               <img src={src} alt="" className="h-full max-h-[200px] w-full object-contain" />
@@ -459,8 +459,8 @@ export function ContributionStage1ResultsSummarySlide({
     <div className="w-full">
       <SlideHeader title={title} />
       <div className="space-y-5">
-        <Panel className="overflow-hidden p-0">
-          <table className="w-full text-sm">
+        <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
+          <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-cyan-400/20 bg-slate-950/60">
                 {['Model', 'Accuracy', 'Macro F1', 'TP Recall', 'FP Recall', 'Parse Errors'].map((h) => (
@@ -489,7 +489,7 @@ export function ContributionStage1ResultsSummarySlide({
             <CheckCircle2 size={18} />
             Key Takeaways
           </div>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-3 md:grid-cols-2">
             {takeaways.map((item) => (
               <div key={item} className="flex gap-3 text-sm leading-relaxed text-cyan-50">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-300" />
@@ -524,13 +524,13 @@ export function ContributionStage1PlotsSlide({ title, images }: ContributionStag
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {plots.map((plot) => (
           <div key={plot.src} className="overflow-hidden rounded-xl border border-cyan-400/25 bg-slate-950/55">
             <div className="border-b border-cyan-400/15 px-4 py-2 text-xs font-black uppercase text-cyan-300">
               {plot.label}
             </div>
-            <div className="flex h-[220px] items-center justify-center p-3">
+            <div className="flex h-[160px] items-center justify-center p-3 sm:h-[220px]">
               <img src={plot.src} alt={plot.label} className="h-full w-full object-contain" />
             </div>
           </div>
@@ -567,7 +567,7 @@ export function ContributionStage2PromptingSlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-[0.85fr_1.15fr] gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="space-y-3">
           <Panel>
             <div className="mb-2 text-xs font-black uppercase text-blue-200">Why no fine-tuning?</div>
@@ -585,8 +585,8 @@ export function ContributionStage2PromptingSlide({
           </Panel>
         </div>
         <div className="space-y-3">
-          <Panel className="overflow-hidden p-0">
-            <table className="w-full text-xs">
+          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
+            <table className="w-full min-w-[420px] text-xs">
               <thead>
                 <tr className="border-b border-cyan-400/20 bg-slate-950/60">
                   {['Strategy', 'Format', 'MITRE', 'Tokens', 'Latency'].map((h) => (
@@ -669,13 +669,13 @@ export function ContributionStage2ResultsSlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="space-y-3">
-          <Panel className="overflow-hidden p-0">
+          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
             <div className="border-b border-cyan-400/20 bg-slate-950/60 px-3 py-1.5 text-xs font-black uppercase text-cyan-300">
               Model Benchmark - N=150 TP alerts
             </div>
-            <table className="w-full text-xs">
+            <table className="w-full min-w-[520px] text-xs">
               <thead>
                 <tr className="border-b border-cyan-400/15 bg-slate-950/40">
                   {['Model', 'Format', 'MITRE', 'Action.', 'Halluc.', 'Latency'].map((h) => (
@@ -705,7 +705,7 @@ export function ContributionStage2ResultsSlide({
           </Panel>
         </div>
         <div className="space-y-3">
-          <Panel className="overflow-hidden p-0">
+          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
             <div className="border-b border-cyan-400/20 bg-slate-950/60 px-3 py-1.5 text-xs font-black uppercase text-cyan-300">
               Escalation Policy Comparison
             </div>
@@ -769,10 +769,10 @@ export function ContributionPipelinePerfSlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-[1.1fr_0.9fr] gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-3">
-          <Panel className="overflow-hidden p-0">
-            <table className="w-full text-sm">
+          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
+            <table className="w-full min-w-[480px] text-sm">
               <thead>
                 <tr className="border-b border-cyan-400/20 bg-slate-950/60">
                   {['Component', 'Avg Latency', 'Focus'].map((h) => (
@@ -800,11 +800,11 @@ export function ContributionPipelinePerfSlide({
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-1 flex-col items-center justify-center rounded-xl border border-cyan-300/40 bg-cyan-500/10 p-6 text-center">
-            <div className="text-5xl font-black text-cyan-200">{throughputStat}</div>
+            <div className="text-3xl font-black text-cyan-200 sm:text-5xl">{throughputStat}</div>
             <div className="mt-2 text-sm font-semibold uppercase tracking-wide text-gray-400">{throughputLabel}</div>
           </div>
           <div className="flex flex-1 flex-col items-center justify-center rounded-xl border border-blue-400/30 bg-blue-500/10 p-4 text-center">
-            <div className="text-3xl font-black text-blue-200">90%+</div>
+            <div className="text-2xl font-black text-blue-200 sm:text-3xl">90%+</div>
             <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-gray-400">of raw alerts filtered in 1.65 s</div>
             <div className="mt-2 text-xs text-gray-400">Analysts only review confirmed threats</div>
           </div>
@@ -836,7 +836,7 @@ export function ContributionDashboardSlide({
     <div className="w-full">
       <SlideHeader title={title} />
       <div className="space-y-3">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {stack.map((s) => (
             <div key={s.label} className="rounded-lg border border-cyan-400/25 bg-slate-900/55 px-3 py-2 text-center">
               <div className="text-sm font-black text-cyan-200">{s.label}</div>
@@ -844,7 +844,7 @@ export function ContributionDashboardSlide({
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {panels.map((panel) => (
             <div key={panel.num} className="flex flex-col overflow-hidden rounded-xl border border-cyan-400/20 bg-slate-900/55">
               <div className="flex items-center gap-2 border-b border-cyan-400/15 bg-slate-950/50 px-3 py-1.5">
@@ -853,7 +853,7 @@ export function ContributionDashboardSlide({
                 </div>
                 <span className="text-xs font-black text-cyan-200">{panel.title}</span>
               </div>
-              <div className="grid flex-1 grid-cols-[1fr_1fr]">
+              <div className="grid flex-1 grid-cols-1 sm:grid-cols-2">
                 <div className="space-y-1 p-2.5">
                   {panel.items.map((item) => (
                     <div key={item} className="flex gap-1.5 text-[11px] leading-relaxed text-gray-300">
@@ -889,7 +889,7 @@ export function ContributionDashboardPanelSlide({
     <div className="w-full">
       <SlideHeader title={title} />
       <div className="space-y-4">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {stack.map((s) => (
             <div key={s.label} className="rounded-lg border border-cyan-400/25 bg-slate-900/55 px-3 py-2 text-center">
               <div className="text-sm font-black text-cyan-200">{s.label}</div>
@@ -904,11 +904,11 @@ export function ContributionDashboardPanelSlide({
             </div>
             <h3 className="text-lg font-black text-cyan-200">{panel.title}</h3>
           </div>
-          <div className="flex h-[360px] items-center justify-center p-4">
+          <div className="flex h-[220px] items-center justify-center p-4 sm:h-[300px] md:h-[360px]">
             <img src={panel.image} alt={panel.title} className="h-full w-full object-contain" />
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {panel.items.map((item) => (
             <div key={item} className="rounded-lg border border-cyan-400/20 bg-cyan-500/10 p-3 text-xs leading-relaxed text-cyan-50">
               {item}
@@ -931,7 +931,7 @@ export function ContributionDiagramSlide({ title, image, caption }: Contribution
     <div className="flex h-full w-full flex-col">
       <SlideHeader title={title} />
       <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-xl border border-cyan-400/25 bg-slate-950/55 p-4">
-        <img src={image} alt={title} className="h-full max-h-[480px] w-full object-contain" />
+        <img src={image} alt={title} className="h-full max-h-[240px] w-full object-contain sm:max-h-[360px] md:max-h-[480px]" />
       </div>
       {caption && (
         <div className="mt-3 rounded-lg border border-cyan-400/25 bg-cyan-500/10 px-4 py-2 text-center text-sm font-semibold text-cyan-100">
@@ -960,7 +960,7 @@ function CapabilityPill({ value }: { value: string }) {
 
   return (
     <span
-      className={`inline-flex h-8 min-w-20 items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-black uppercase ${
+      className={`inline-flex h-7 min-w-16 items-center justify-center gap-1 rounded-full border px-2 text-[10px] font-black uppercase sm:h-8 sm:min-w-20 sm:gap-1.5 sm:px-3 sm:text-xs ${
         isYes
           ? 'border-cyan-300/45 bg-cyan-400/15 text-cyan-100'
           : 'border-red-300/30 bg-red-500/10 text-red-200'
@@ -981,12 +981,12 @@ export function ContributionRelatedWorkComparisonSlide({
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <Panel className="overflow-hidden p-0">
-        <table className="w-full text-sm">
+      <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
+        <table className="w-full min-w-[720px] text-xs sm:text-sm">
           <thead>
             <tr className="border-b-2 border-cyan-400/40 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
               {headers.map((header) => (
-                <th key={header} className="p-3 text-left font-black text-cyan-300">
+                <th key={header} className="p-2 text-left font-black text-cyan-300 sm:p-3">
                   {header}
                 </th>
               ))}
@@ -998,9 +998,9 @@ export function ContributionRelatedWorkComparisonSlide({
                 key={row.system}
                 className={`border-b border-cyan-400/15 ${row.highlight ? 'bg-cyan-500/10 text-cyan-100' : 'text-gray-300'}`}
               >
-                <td className="p-3 font-black">{row.system}</td>
+                <td className="p-2 font-black sm:p-3">{row.system}</td>
                 {row.capabilities.map((capability, index) => (
-                  <td key={`${row.system}-${index}`} className="p-3">
+                  <td key={`${row.system}-${index}`} className="p-2 sm:p-3">
                     <CapabilityPill value={capability} />
                   </td>
                 ))}
@@ -1023,13 +1023,13 @@ interface ClosingTextSlideProps {
 
 export function ClosingTextSlide({ title, subtitle }: ClosingTextSlideProps) {
   return (
-    <div className="flex min-h-[440px] w-full items-center justify-center text-center">
+    <div className="flex min-h-[240px] w-full items-center justify-center px-4 text-center sm:min-h-[360px] md:min-h-[440px]">
       <div>
-        <div className="mx-auto mb-8 h-1 w-40 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent" />
-        <h2 className="text-7xl font-black uppercase tracking-normal text-cyan-200 drop-shadow-lg">
+        <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent sm:mb-8 sm:w-40" />
+        <h2 className="text-4xl font-black uppercase tracking-normal text-cyan-200 drop-shadow-lg sm:text-5xl md:text-7xl">
           {title}
         </h2>
-        {subtitle && <p className="mt-6 text-2xl font-semibold text-blue-100">{subtitle}</p>}
+        {subtitle && <p className="mt-4 text-lg font-semibold text-blue-100 sm:mt-6 sm:text-2xl">{subtitle}</p>}
       </div>
     </div>
   );
