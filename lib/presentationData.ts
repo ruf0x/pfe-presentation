@@ -665,86 +665,86 @@ export const presentationData = [
     image: '/figures/class-diagram.png',
     caption: 'Core data model connecting users, labeled alerts, and LLM analysis records in the dashboard backend.'
   },
-  {
-    type: 'contribution-dashboard-panel',
-    title: 'SOC Dashboard — Overview',
-    stack: [
-      { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
-      { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
-      { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
-    ],
-    panel: {
-      num: '1',
-      title: 'Overview — KPIs & Attack Distribution',
-      items: [
-        'Total alerts, TP/FP counts + percentages',
-        'Analyses run + avg LLM latency',
-        'Attack distribution breakdown',
-        'Recent analyses with MITRE tactic badges'
-      ],
-      image: '/figures/dashboard_overview.png'
-    }
-  },
-  {
-    type: 'contribution-dashboard-panel',
-    title: 'SOC Dashboard — Labeled Alerts',
-    stack: [
-      { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
-      { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
-      { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
-    ],
-    panel: {
-      num: '2',
-      title: 'Labeled Alerts — Triage List',
-      items: [
-        'Paginated table of all triaged alerts',
-        'Color-coded TP / FP badges',
-        'View raw JSON and trigger Stage 2',
-        'Toggle label override, delete, bulk FP purge'
-      ],
-      image: '/figures/dashboard_labeled_alerts.png'
-    }
-  },
-  {
-    type: 'contribution-dashboard-panel',
-    title: 'SOC Dashboard — LLM Analysis',
-    stack: [
-      { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
-      { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
-      { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
-    ],
-    panel: {
-      num: '3',
-      title: 'LLM Analysis — Threat Reports',
-      items: [
-        'Attack type + MITRE tactic badge per alert',
-        'IR command in console-styled green block',
-        '50-word threat description on View',
-        'Copy IR command for fast containment'
-      ],
-      image: '/figures/dashboard_llm_analysis.png'
-    }
-  },
-  {
-    type: 'contribution-dashboard-panel',
-    title: 'SOC Dashboard — User Management',
-    stack: [
-      { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
-      { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
-      { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
-    ],
-    panel: {
-      num: '4',
-      title: 'User Management — Access Control',
-      items: [
-        'Admin-only panel with RBAC enforcement',
-        'View all accounts, roles, active status',
-        'Create / delete analyst accounts',
-        'pbkdf2_sha256 hashed passwords'
-      ],
-      image: '/figures/dashboard_user_management.png'
-    }
-  },
+  // {
+  //   type: 'contribution-dashboard-panel',
+  //   title: 'SOC Dashboard — Overview',
+  //   stack: [
+  //     { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
+  //     { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
+  //     { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
+  //   ],
+  //   panel: {
+  //     num: '1',
+  //     title: 'Overview — KPIs & Attack Distribution',
+  //     items: [
+  //       'Total alerts, TP/FP counts + percentages',
+  //       'Analyses run + avg LLM latency',
+  //       'Attack distribution breakdown',
+  //       'Recent analyses with MITRE tactic badges'
+  //     ],
+  //     image: '/figures/dashboard_overview.png'
+  //   }
+  // },
+  // {
+  //   type: 'contribution-dashboard-panel',
+  //   title: 'SOC Dashboard — Labeled Alerts',
+  //   stack: [
+  //     { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
+  //     { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
+  //     { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
+  //   ],
+  //   panel: {
+  //     num: '2',
+  //     title: 'Labeled Alerts — Triage List',
+  //     items: [
+  //       'Paginated table of all triaged alerts',
+  //       'Color-coded TP / FP badges',
+  //       'View raw JSON and trigger Stage 2',
+  //       'Toggle label override, delete, bulk FP purge'
+  //     ],
+  //     image: '/figures/dashboard_labeled_alerts.png'
+  //   }
+  // },
+  // {
+  //   type: 'contribution-dashboard-panel',
+  //   title: 'SOC Dashboard — LLM Analysis',
+  //   stack: [
+  //     { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
+  //     { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
+  //     { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
+  //   ],
+  //   panel: {
+  //     num: '3',
+  //     title: 'LLM Analysis — Threat Reports',
+  //     items: [
+  //       'Attack type + MITRE tactic badge per alert',
+  //       'IR command in console-styled green block',
+  //       '50-word threat description on View',
+  //       'Copy IR command for fast containment'
+  //     ],
+  //     image: '/figures/dashboard_llm_analysis.png'
+  //   }
+  // },
+  // {
+  //   type: 'contribution-dashboard-panel',
+  //   title: 'SOC Dashboard — User Management',
+  //   stack: [
+  //     { label: 'FastAPI (Python 3.12)', desc: 'Async backend · JWT auth · RBAC · OpenAPI docs' },
+  //     { label: 'PostgreSQL (wazuhdb)', desc: '3 tables: labeled_alerts · llm_analysis · users' },
+  //     { label: 'Vanilla HTML5 / JS / CSS3', desc: 'Dark theme · SPA · near-instant load · no framework overhead' }
+  //   ],
+  //   panel: {
+  //     num: '4',
+  //     title: 'User Management — Access Control',
+  //     items: [
+  //       'Admin-only panel with RBAC enforcement',
+  //       'View all accounts, roles, active status',
+  //       'Create / delete analyst accounts',
+  //       'pbkdf2_sha256 hashed passwords'
+  //     ],
+  //     image: '/figures/dashboard_user_management.png'
+  //   }
+  // },
   {
     type: 'contribution-related-work-comparison',
     title: 'Comparison with Related Work',
