@@ -1,4 +1,4 @@
-import { Activity, BrainCircuit, Database, GitBranch, MonitorCog, Search, Shield, Siren, Workflow, Zap } from 'lucide-react';
+import { BrainCircuit, Database, GitBranch, MonitorCog, Search, Shield, Siren, Workflow, Zap } from 'lucide-react';
 import { DataTable, SlideHeader } from '@/components/common';
 
 interface BulletItem {
@@ -208,11 +208,11 @@ export function WazuhPipelineSlide({ title, flow, ruleDetails }: WazuhPipelineSl
   );
 }
 
-export function AiSiemSlide({ title, why, approaches, wazuh }: AiSiemSlideProps) {
+export function AiSiemSlide({ title, why, wazuh }: AiSiemSlideProps) {
   return (
     <div className="w-full">
       <SlideHeader title={title} />
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Panel>
           <div className="mb-4 flex items-center gap-3">
             <BrainCircuit className="text-cyan-300" size={28} />
@@ -220,20 +220,7 @@ export function AiSiemSlide({ title, why, approaches, wazuh }: AiSiemSlideProps)
           </div>
           <CompactBulletList items={why.map((text) => ({ text }))} />
         </Panel>
-        <Panel>
-          <div className="mb-4 flex items-center gap-3">
-            <Activity className="text-blue-300" size={26} />
-            <h3 className="text-xl font-extrabold text-blue-200">Literature</h3>
-          </div>
-          <div className="space-y-3">
-            {approaches.map((approach) => (
-              <div key={approach.title} className="rounded-lg bg-slate-950/45 p-3">
-                <h4 className="mb-1 text-sm font-bold text-cyan-300">{approach.title}</h4>
-                <p className="text-xs leading-relaxed text-gray-400">{approach.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Panel>
+
         <Panel>
           <div className="mb-4 flex items-center gap-3">
             <Zap className="text-cyan-300" size={26} />

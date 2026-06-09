@@ -175,8 +175,7 @@ export const presentationData = [
         points: [
           'Indexer is OpenSearch-based and stores alerts as JSON documents.',
           'Dashboard provides visualization, search, and case management.',
-          'REST API exposes alerts for external integrations.',
-          'Our collector uses this API as the entry point to the AI pipeline.'
+          'REST API exposes alerts for external integrations.'
         ]
       }
     ]
@@ -215,7 +214,6 @@ export const presentationData = [
     ],
     wazuh: [
       'Wazuh has no native ML or LLM pipeline, so integration must be custom-built.',
-      'Our collector queries Wazuh alerts and sends them to Stage 1 fine-tuned LLM classification.',
       'Stage 2 few-shot LLM adds MITRE mapping and incident-response advice.',
       'PostgreSQL stores verdicts, analysis, and analyst-facing outcomes.'
     ]
@@ -371,24 +369,24 @@ export const presentationData = [
     sources: [
       {
         title: 'kholil-lil/wazuh-alerts',
-        meta: 'Hugging Face, MIT',
+        meta: 'Hugging Face, MIT — ~700 records',
         items: [
-          '~700 pre-labeled Wazuh alerts in Alpaca format: instruction, raw JSON input, and TP/FP output.',
+          'Pre-labeled Wazuh alerts in Alpaca format: instruction, raw JSON input, and TP/FP output.',
           'Used directly as the corpus foundation with no structural transformation needed.'
         ]
       },
       {
         title: 'AIT-ADS',
-        meta: '2.6M records, Wazuh subset only',
+        meta: '2.6M records, filtered & sampled — ~4,000 records',
         items: [
           'Filtered to Wazuh-only rows where name_decoder is non-null; labels normalized to canonical form.',
-          'Balanced sampling: 100 TP and 100 FP via stratified random selection to avoid class skew.',
+          'Stratified random sampling to avoid class skew.',
           'Alpaca-wrapped with the same instruction field.'
         ]
       },
       {
         title: 'Personal Wazuh Instance',
-        meta: 'Live lab environment',
+        meta: 'Live lab environment — ~200 records',
         items: [
           'Raw alerts.json exports covering Windows Event Channel, SSH auth, FIM, and log rotation events.',
           'Anonymized agent.name, agent.id, agent.ip, and manager fields before training.',
@@ -397,9 +395,9 @@ export const presentationData = [
       }
     ],
     summary: [
-      { label: 'Clean records', value: '738' },
-      { label: 'Training split', value: '590' },
-      { label: 'Test split', value: '148' }
+      { label: 'Clean records', value: '4,928' },
+      { label: 'Training split', value: '3,942' },
+      { label: 'Test split', value: '986' }
     ]
   },
   {
@@ -559,14 +557,12 @@ export const presentationData = [
     rows: [
       { model: 'Phi-3.5-mini', accuracy: '88.03%', f1: '0.9187', tpRecall: '0.9737', fpRecall: '0.7866', parseErrors: '88 / 986' },
       { model: 'Gemma-3-27B', accuracy: '96.62%', f1: '0.9621', tpRecall: '0.9792', fpRecall: '0.9600', parseErrors: 'N/A' },
-      { model: 'LLaMA 3.1 8B', accuracy: '99.39%', f1: '0.9939', tpRecall: '0.9919', fpRecall: '0.9959', parseErrors: '0 / 986', winner: true },
-      { model: 'LLaMA (zero-shot)', accuracy: '96.62%', f1: '-', tpRecall: '0.9792', fpRecall: '-', parseErrors: '-' }
+      { model: 'LLaMA 3.1 8B', accuracy: '99.39%', f1: '0.9939', tpRecall: '0.9919', fpRecall: '0.9959', parseErrors: '6 / 986', winner: true }
     ],
     takeaways: [
-      'LLaMA 3.1 8B fine-tuned: zero parse errors across 986 samples, perfect JSON compliance',
+      'LLaMA 3.1 8B fine-tuned: only 6 parse errors across 986 samples',
       'Only 4 false negatives out of 494 TPs; only 2 FPs leaked to Stage 2',
-      'Phi-3.5-mini: 88 parse errors, structurally unusable in an automated pipeline',
-      'Fine-tuning over zero-shot: +2.77% accuracy, confirming domain adaptation value'
+      'Phi-3.5-mini: 88 parse errors, structurally unusable in an automated pipeline'
     ]
   },
   {

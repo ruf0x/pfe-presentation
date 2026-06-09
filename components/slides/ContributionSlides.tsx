@@ -167,6 +167,11 @@ export function ContributionDatasetSlide({ title, sources, summary }: Contributi
           </Panel>
         ))}
       </div>
+      <div className="mt-6 flex items-center gap-3">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+        <h3 className="whitespace-nowrap text-sm font-black uppercase tracking-widest text-cyan-300">Train Test Split</h3>
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+      </div>
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {summary.map((item) => (
           <div key={item.label} className="rounded-lg border border-cyan-400/25 bg-cyan-500/10 p-3 text-center">
