@@ -41,6 +41,8 @@ import {
   ContributionDiagramSlide,
   ContributionRelatedWorkComparisonSlide,
   ClosingTextSlide,
+  WhyFineTuningSlide,
+  DemoSetupSlide,
   ArchitectureSlide,
   DatasetSlide,
   FinetuningSlide,
@@ -323,6 +325,13 @@ export function PresentationComponent() {
             summary={slide.summary}
           />
         );
+      case 'why-fine-tuning':
+        return (
+          <WhyFineTuningSlide
+            title={slide.title}
+            bullets={slide.bullets}
+          />
+        );
       case 'contribution-dataset-analysis':
         return (
           <ContributionDatasetAnalysisSlide
@@ -398,8 +407,6 @@ export function PresentationComponent() {
             title={slide.title}
             benchRows={slide.benchRows}
             deployStats={slide.deployStats}
-            escalationRows={slide.escalationRows}
-            triggers={slide.triggers}
           />
         );
       case 'contribution-pipeline-perf':
@@ -445,6 +452,8 @@ export function PresentationComponent() {
             note={slide.note}
           />
         );
+      case 'demo-setup':
+        return <DemoSetupSlide title={slide.title} items={slide.items} />;
       case 'closing-text':
         return <ClosingTextSlide title={slide.title} subtitle={slide.subtitle} />;
       case 'architecture':

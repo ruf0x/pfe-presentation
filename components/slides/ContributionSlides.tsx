@@ -648,102 +648,53 @@ interface Stage2BenchRow {
   winner?: boolean;
 }
 
-interface EscalationRow {
-  policy: string;
-  count: string;
-  pct: string;
-  impact: string;
-  highlight?: boolean;
-}
-
 interface ContributionStage2ResultsSlideProps {
   title: string;
   benchRows: Stage2BenchRow[];
   deployStats: string[];
-  escalationRows: EscalationRow[];
-  triggers: string[];
 }
 
 export function ContributionStage2ResultsSlide({
   title,
   benchRows,
   deployStats,
-  escalationRows,
-  triggers,
 }: ContributionStage2ResultsSlideProps) {
   return (
     <div className="w-full">
       <SlideHeader title={title} />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="space-y-3">
-          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
-            <div className="border-b border-cyan-400/20 bg-slate-950/60 px-3 py-1.5 text-xs font-black uppercase text-cyan-300">
-              Model Benchmark - N=150 TP alerts
-            </div>
-            <table className="w-full min-w-[520px] text-xs">
-              <thead>
-                <tr className="border-b border-cyan-400/15 bg-slate-950/40">
-                  {['Model', 'Format', 'MITRE', 'Action.', 'Halluc.', 'Latency'].map((h) => (
-                    <th key={h} className="px-2 py-1.5 text-left text-[10px] font-black uppercase text-gray-400">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {benchRows.map((row) => (
-                  <tr key={row.model} className={`border-b border-cyan-400/10 ${row.winner ? 'bg-cyan-500/10' : ''}`}>
-                    <td className={`px-2 py-2 text-[11px] font-bold ${row.winner ? 'text-cyan-200' : 'text-gray-300'}`}>{row.model}</td>
-                    <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-cyan-200' : 'text-gray-300'}`}>{row.format}</td>
-                    <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-cyan-200' : 'text-gray-300'}`}>{row.mitre}</td>
-                    <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-cyan-200' : 'text-gray-300'}`}>{row.actionability}</td>
-                    <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-green-300' : 'text-red-300'}`}>{row.hallucination}</td>
-                    <td className="px-2 py-2 font-mono text-[11px] text-gray-300">{row.latency}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Panel>
-          <Panel>
-            <div className="mb-2 text-xs font-black uppercase text-cyan-300">Deployment - 148 confirmed TPs</div>
-            <BulletItems items={deployStats} />
-          </Panel>
-        </div>
-        <div className="space-y-3">
-          <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
-            <div className="border-b border-cyan-400/20 bg-slate-950/60 px-3 py-1.5 text-xs font-black uppercase text-cyan-300">
-              Escalation Policy Comparison
-            </div>
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-cyan-400/15 bg-slate-950/40">
-                  {['Policy', 'Escalated', '%', 'Impact'].map((h) => (
-                    <th key={h} className="px-2 py-1.5 text-left text-[10px] font-black uppercase text-gray-400">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {escalationRows.map((row) => (
-                  <tr key={row.policy} className={`border-b border-cyan-400/10 ${row.highlight ? 'bg-cyan-500/10' : ''}`}>
-                    <td className={`px-2 py-2 text-[11px] font-bold ${row.highlight ? 'text-cyan-200' : 'text-gray-300'}`}>{row.policy}</td>
-                    <td className={`px-2 py-2 font-mono text-[11px] ${row.highlight ? 'font-black text-cyan-200' : 'text-red-300'}`}>{row.count}</td>
-                    <td className={`px-2 py-2 font-mono text-[11px] ${row.highlight ? 'font-black text-cyan-200' : 'text-red-300'}`}>{row.pct}</td>
-                    <td className={`px-2 py-2 text-[11px] ${row.highlight ? 'text-cyan-100' : 'text-gray-400'}`}>{row.impact}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Panel>
-          <Panel>
-            <div className="mb-2 text-xs font-black uppercase text-cyan-300">Hybrid Policy - 3 Triggers</div>
-            <BulletItems items={triggers} />
-          </Panel>
-          <div className="rounded-lg border border-cyan-300/40 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-100">
-            52.7% ticket reduction - from 148 to 70 escalations - without compromising safety.
+        <Panel className="overflow-x-auto p-0 presentation-slide-scroll">
+          <div className="border-b border-cyan-400/20 bg-slate-950/60 px-3 py-1.5 text-xs font-black uppercase text-cyan-300">
+            Model Benchmark - N=150 TP alerts
           </div>
-        </div>
+          <table className="w-full min-w-[520px] text-xs">
+            <thead>
+              <tr className="border-b border-cyan-400/15 bg-slate-950/40">
+                {['Model', 'Format', 'MITRE', 'Action.', 'Halluc.', 'Latency'].map((h) => (
+                  <th key={h} className="px-2 py-1.5 text-left text-[10px] font-black uppercase text-gray-400">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {benchRows.map((row) => (
+                <tr key={row.model} className={`border-b border-cyan-400/10 ${row.winner ? 'bg-cyan-500/10' : ''}`}>
+                  <td className={`px-2 py-2 text-[11px] font-bold ${row.winner ? 'text-cyan-200' : 'text-gray-300'}`}>{row.model}</td>
+                  <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-cyan-200' : 'text-gray-300'}`}>{row.format}</td>
+                  <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-cyan-200' : 'text-gray-300'}`}>{row.mitre}</td>
+                  <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-cyan-200' : 'text-gray-300'}`}>{row.actionability}</td>
+                  <td className={`px-2 py-2 font-mono text-[11px] ${row.winner ? 'font-black text-green-300' : 'text-red-300'}`}>{row.hallucination}</td>
+                  <td className="px-2 py-2 font-mono text-[11px] text-gray-300">{row.latency}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Panel>
+        <Panel>
+          <div className="mb-2 text-xs font-black uppercase text-cyan-300">Deployment - 148 confirmed TPs</div>
+          <BulletItems items={deployStats} />
+        </Panel>
       </div>
     </div>
   );
@@ -1016,6 +967,62 @@ export function ContributionRelatedWorkComparisonSlide({
       </Panel>
       <div className="mt-4 rounded-lg border border-cyan-300/35 bg-cyan-500/10 p-4 text-center text-sm font-semibold text-cyan-100">
         {note}
+      </div>
+    </div>
+  );
+}
+
+interface WhyFineTuningSlideProps {
+  title: string;
+  bullets: string[];
+}
+
+export function WhyFineTuningSlide({
+  title,
+  bullets,
+}: WhyFineTuningSlideProps) {
+  return (
+    <div className="w-full">
+      <SlideHeader title={title} />
+      <Panel>
+        <div className="mb-2 text-xs font-black uppercase text-cyan-300">
+          Why Fine-Tuning?
+        </div>
+        <div className="space-y-2">
+          {bullets.map((item) => (
+            <div key={item} className="flex gap-2.5 text-xs leading-relaxed text-gray-300">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
+      </Panel>
+    </div>
+  );
+}
+
+interface DemoSetupItem {
+  label: string;
+  desc: string;
+  fullWidth?: boolean;
+}
+
+interface DemoSetupSlideProps {
+  title: string;
+  items: DemoSetupItem[];
+}
+
+export function DemoSetupSlide({ title, items }: DemoSetupSlideProps) {
+  return (
+    <div className="w-full">
+      <SlideHeader title={title} />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {items.map((item) => (
+          <div key={item.label} className={`rounded-xl border border-cyan-400/25 bg-slate-900/55 p-5 shadow-lg shadow-cyan-500/5 ${item.fullWidth ? 'md:col-span-3' : ''}`}>
+            <div className="text-sm font-black uppercase tracking-wider text-cyan-300 mb-3">{item.label}</div>
+            <div className="text-xs leading-relaxed text-gray-300">{item.desc}</div>
+          </div>
+        ))}
       </div>
     </div>
   );

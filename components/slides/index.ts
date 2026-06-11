@@ -41,6 +41,8 @@ export {
   ContributionDiagramSlide,
   ContributionRelatedWorkComparisonSlide,
   ClosingTextSlide,
+  WhyFineTuningSlide,
+  DemoSetupSlide,
 } from './ContributionSlides';
 export { ArchitectureSlide } from './ArchitectureSlide';
 export { DatasetSlide } from './DatasetSlide';

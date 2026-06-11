@@ -61,7 +61,7 @@ An open-source, enterprise-grade security monitoring platform combining SIEM and
 **The Alert Fatigue Crisis**
 
 ### Volume Overload
-Modern SIEMs like Wazuh generate thousands of alerts daily, overwhelming SOC analysts and burying critical signals.
+Modern SIEMs generate thousands of alerts daily, overwhelming SOC analysts and burying critical signals.
 
 ### False Positive Burden
 Analysts spend over 25% of their time investigating events that turn out to be benign, leading to wasted resources.

@@ -22,22 +22,6 @@ export const presentationData = [
     num: '1',
     title: 'Introduction'
   },
-  {
-    type: 'foundation',
-    title: 'Wazuh SIEM/XDR Platform',
-    wazuh: {
-      title: 'Wazuh Overview',
-      intro: 'An open-source, enterprise-grade security monitoring platform combining SIEM and XDR capabilities to detect, analyze, and respond to threats.',
-      points: [
-        { label: 'Agent-Based Collection', description: 'Lightweight agent monitors files, processes, configurations, and system logs.' },
-        { label: 'Real-time Rules Engine', description: 'Processes logs via decoders and triggers alerts based on hundreds of built-in rule files.' },
-        { label: 'Security Analytics', description: 'Detects anomalies, hidden malware, policy violations, and system vulnerabilities.' },
-        { label: 'Active Response Actions', description: 'Automates remediation (e.g., firewall block, service restart, host isolation) upon detection.' },
-        { label: 'Unified XDR Features', description: 'Integrates endpoint protection with cloud monitoring, container security, and log auditing.' }
-      ]
-    },
-    quote: 'Wazuh serves as our primary detection engine, feeding telemetry into the AI triage pipeline.'
-  },
   // {
   //   type: 'siem-mitre',
   //   title: 'Definitions: SIEM & MITRE ATT&CK',
@@ -144,6 +128,22 @@ export const presentationData = [
       ['Web Attacks', 'SQLi, XSS, directory traversal']
     ],
     note: 'MITRE ATT&CK maps these behaviors to tactics and techniques, which is used later in the Stage 2 LLM analysis.'
+  },
+  {
+    type: 'foundation',
+    title: 'Wazuh SIEM/XDR Platform',
+    wazuh: {
+      title: 'Wazuh Overview',
+      intro: 'An open-source, enterprise-grade security monitoring platform combining SIEM and XDR capabilities to detect, analyze, and respond to threats.',
+      points: [
+        { label: 'Agent-Based Collection', description: 'Lightweight agent monitors files, processes, configurations, and system logs.' },
+        { label: 'Real-time Rules Engine', description: 'Processes logs via decoders and triggers alerts based on hundreds of built-in rule files.' },
+        { label: 'Security Analytics', description: 'Detects anomalies, hidden malware, policy violations, and system vulnerabilities.' },
+        { label: 'Active Response Actions', description: 'Automates remediation (e.g., firewall block, service restart, host isolation) upon detection.' },
+        { label: 'Unified XDR Features', description: 'Integrates endpoint protection with cloud monitoring, container security, and log auditing.' }
+      ]
+    },
+    quote: 'Wazuh serves as our primary detection engine, feeding telemetry into the AI triage pipeline.'
   },
   {
     type: 'wazuh-components',
@@ -283,7 +283,6 @@ export const presentationData = [
       ['ML-Enhanced Wazuh', 'RF + DBSCAN + Isolation Forest', '97.2%', 'No explainability'],
       ['Proactive SIEM', 'PCA + ICA + LSTM on Wazuh data', 'Improved baseline', 'No explainability'],
       ['ESN-RF Adaptive', 'Echo State Net + TF-IDF + RF', '99.5%', 'Generic SIEM dataset'],
-      ['CNN-LSTM IoT IDS', 'Spatial + temporal hybrid', '98.42% / F1 98.57%', 'FPR 9.17%'],
       ['Attention-CNN-LSTM', 'Self-attention + CNN + LSTM', '94.8-97.5%', 'No IR output'],
       ['Xavier-CMAE', 'CNN + Multi-Head Attention', '99.971% / FPR 0.018%', 'No semantic reasoning']
     ],
@@ -396,8 +395,18 @@ export const presentationData = [
     ],
     summary: [
       { label: 'Clean records', value: '4,928' },
-      { label: 'Training split', value: '3,942' },
-      { label: 'Test split', value: '986' }
+      { label: 'Training split', value: '3,942 (80%)' },
+      { label: 'Test split', value: '986 (20%)' }
+    ]
+  },
+  {
+    type: 'why-fine-tuning',
+    title: 'Why Fine-Tune Instead of Prompt?',
+    bullets: [
+      'Fine-tuning adapts the model specifically to Wazuh alert data, learning domain-specific patterns that prompting alone cannot capture.',
+      'Zero-shot LLMs lack the specialized knowledge of SIEM alert structures, rule IDs, and security semantics required for reliable triage.',
+      'A fine-tuned model produces structured, parseable JSON output with zero errors, whereas prompted models frequently deviate from the required format.',
+      'Fine-tuning ensures consistent performance across all alert categories, including rare attack types that prompting may misclassify.'
     ]
   },
   {
@@ -555,6 +564,7 @@ export const presentationData = [
     type: 'contribution-stage1-results-summary',
     title: 'Stage 1 Results — Classifier Performance',
     rows: [
+      { model: 'LLaMA 3.1 8B (Zero-Shot)', accuracy: '86.01%', f1: '0.908', tpRecall: '0.937', fpRecall: '0.766', parseErrors: '61 / 986' },
       { model: 'Phi-3.5-mini', accuracy: '88.03%', f1: '0.9187', tpRecall: '0.9737', fpRecall: '0.7866', parseErrors: '88 / 986' },
       { model: 'Gemma-3-27B', accuracy: '96.62%', f1: '0.9621', tpRecall: '0.9792', fpRecall: '0.9600', parseErrors: 'N/A' },
       { model: 'LLaMA 3.1 8B', accuracy: '99.39%', f1: '0.9939', tpRecall: '0.9919', fpRecall: '0.9959', parseErrors: '6 / 986', winner: true }
@@ -622,15 +632,6 @@ export const presentationData = [
       'Top attacker IPs: 116.193.190.42 (38 hits), 45.55.159.241 (35 hits)',
       'MITRE tactics: Credential Access (55), Credential Access + Lateral Movement (44)'
     ],
-    escalationRows: [
-      { policy: 'LLM-driven', count: '148 / 148', pct: '100%', impact: 'Severe over-escalation: analyst fatigue' },
-      { policy: 'Hybrid rule-based', count: '70 / 148', pct: '47.3%', impact: '52.7% ticket reduction: targeted triaging', highlight: true }
-    ],
-    triggers: [
-      'Trigger 1: Stage 1 confidence < 0.80 -> escalate classification ambiguity',
-      'Trigger 2: Stage 2 severity = Critical -> escalate high-impact threat',
-      'Trigger 3: Attack category in { Privilege Escalation, Lateral Movement } -> escalate'
-    ]
   },
   {
     type: 'contribution-pipeline-perf',
@@ -791,6 +792,16 @@ export const presentationData = [
       }
     ],
     quote: 'The answer to alert fatigue is a system that reads every alert with the same attention a senior analyst would.'
+  },
+  {
+    type: 'demo-setup',
+    title: 'Demonstration Setup',
+    items: [
+      { label: 'Wazuh Server', desc: 'Ubuntu Server VM running the Wazuh manager, indexer, and dashboard to collect and analyze security events from all agents.' },
+      { label: 'Agent 1 — Kali Linux', desc: 'Penetration testing virtual machine used to simulate real-world attacks and generate security alerts for the pipeline.' },
+      { label: 'Agent 2 — Windows 10', desc: 'Standard corporate workstation environment generating typical endpoint telemetry for baseline monitoring.' },
+      { label: 'Web Application', desc: 'AI triage dashboard accessible at http://wazuhip:8000/, providing real-time alert classification and threat analysis.', fullWidth: true }
+    ]
   },
   {
     type: 'closing-text',
