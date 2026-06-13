@@ -22,6 +22,30 @@ export const presentationData = [
     num: '1',
     title: 'Introduction'
   },
+  {
+    type: 'siem-edr-xdr',
+    title: 'SIEM, EDR, XDR & Network Security',
+    definitions: [
+      {
+        term: 'SIEM',
+        def: 'Security Information & Event Management — aggregates and correlates logs from across the IT infrastructure to detect threats, generate alerts, and maintain compliance through long-term log retention.'
+      },
+      {
+        term: 'EDR',
+        def: 'Endpoint Detection & Response — monitors endpoint-level activity (processes, files, registry) in real time for behavioral anomalies and enables automated or manual threat containment.'
+      },
+      {
+        term: 'XDR',
+        def: 'Extended Detection & Response — evolved directly from EDR by broadening endpoint telemetry to include network, email, cloud, and identity-layer signals into a single correlated view. Unlike SIEM (which relies on log aggregation from diverse sources), XDR ingests native high-fidelity telemetry from tightly integrated sensors to deliver automated detection, investigation, and response across domains.'
+      }
+    ],
+    comparisonRows: [
+      { technology: 'Firewall', purpose: 'Allow/block traffic by rule', scope: 'Network perimeter', action: 'Preventative (block/drop)' },
+      { technology: 'IDS', purpose: 'Detect suspicious patterns in traffic', scope: 'Network-wide', action: 'Passive (alert only)' },
+      { technology: 'IPS', purpose: 'Detect and block threats inline', scope: 'Network-wide', action: 'Reactive (block/drop)' },
+      { technology: 'SIEM/EDR/XDR', purpose: 'Correlate, analyse, and respond to threats', scope: 'Full-stack (endpoint, network, cloud)', action: 'Detective & responsive (alert + contain + remediate)' }
+    ]
+  },
   // {
   //   type: 'siem-mitre',
   //   title: 'Definitions: SIEM & MITRE ATT&CK',

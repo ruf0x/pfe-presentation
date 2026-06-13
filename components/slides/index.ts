@@ -10,6 +10,7 @@ export {
   AiSiemSlide,
 } from './BackgroundSlides';
 export { SiemMitreSlide } from './SiemMitreSlide';
+export { SiemEdrXdrSlide } from './SiemEdrXdrSlide';
 export { AlertFatigueSlide } from './AlertFatigueSlide';
 export { ObjectivesSlide } from './ObjectivesSlide';
 export { FoundationSlide } from './FoundationSlide';

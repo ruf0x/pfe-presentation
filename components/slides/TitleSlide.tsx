@@ -10,6 +10,11 @@ interface TitleSlideProps {
 export function TitleSlide({ title, presenter, specialty, supervisor }: TitleSlideProps) {
   return (
     <div className="flex h-full flex-col items-center justify-center space-y-6 px-2 text-center sm:space-y-10 md:space-y-12">
+      <img
+        src="/esi-sba-logo.png"
+        alt="ESI SBA Logo"
+        className="h-auto w-80 object-contain sm:w-96 md:w-[28rem]"
+      />
       <div className="space-y-4 sm:space-y-6">
         <div className="inline-block">
           <div className="mx-auto mb-4 h-1 w-16 bg-gradient-to-r from-transparent via-cyan-400 to-transparent sm:mb-6 sm:w-20" />

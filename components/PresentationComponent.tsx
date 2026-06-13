@@ -13,6 +13,7 @@ import {
   WazuhPipelineSlide,
   AiSiemSlide,
   SiemMitreSlide,
+  SiemEdrXdrSlide,
   AlertFatigueSlide,
   ObjectivesSlide,
   FoundationSlide,
@@ -251,6 +252,14 @@ export function PresentationComponent() {
             title={slide.title}
             siem={slide.siem}
             mitre={slide.mitre}
+          />
+        );
+      case 'siem-edr-xdr':
+        return (
+          <SiemEdrXdrSlide
+            title={slide.title}
+            definitions={slide.definitions}
+            comparisonRows={slide.comparisonRows}
           />
         );
       case 'alert-fatigue':
