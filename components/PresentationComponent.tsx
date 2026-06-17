@@ -259,7 +259,6 @@ export function PresentationComponent() {
           <SiemEdrXdrSlide
             title={slide.title}
             definitions={slide.definitions}
-            comparisonRows={slide.comparisonRows}
           />
         );
       case 'alert-fatigue':

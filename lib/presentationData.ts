@@ -36,14 +36,20 @@ export const presentationData = [
       },
       {
         term: 'XDR',
-        def: 'Extended Detection & Response — evolved directly from EDR by broadening endpoint telemetry to include network, email, cloud, and identity-layer signals into a single correlated view. Unlike SIEM (which relies on log aggregation from diverse sources), XDR ingests native high-fidelity telemetry from tightly integrated sensors to deliver automated detection, investigation, and response across domains.'
+        def: 'Extended Detection & Response — evolved directly from EDR by broadening endpoint telemetry to include network, email, cloud, and identity-layer signals into a single correlated view for automated detection, investigation, and response across domains.'
+      },
+      {
+        term: 'Firewall',
+        def: 'Network security system that monitors and controls incoming and outgoing traffic based on predetermined security rules, acting as a barrier between trusted internal networks and untrusted external networks.'
+      },
+      {
+        term: 'IDS',
+        def: 'Intrusion Detection System — passively monitors network traffic or system activity for suspicious patterns and known attack signatures, generating alerts when potential threats are identified without taking direct action.'
+      },
+      {
+        term: 'IPS',
+        def: 'Intrusion Prevention System — builds on IDS capabilities by actively inspecting and blocking threats in real time, sitting inline in the network path to automatically drop or reject malicious traffic.'
       }
-    ],
-    comparisonRows: [
-      { technology: 'Firewall', purpose: 'Allow/block traffic by rule', scope: 'Network perimeter', action: 'Preventative (block/drop)' },
-      { technology: 'IDS', purpose: 'Detect suspicious patterns in traffic', scope: 'Network-wide', action: 'Passive (alert only)' },
-      { technology: 'IPS', purpose: 'Detect and block threats inline', scope: 'Network-wide', action: 'Reactive (block/drop)' },
-      { technology: 'SIEM/EDR/XDR', purpose: 'Correlate, analyse, and respond to threats', scope: 'Full-stack (endpoint, network, cloud)', action: 'Detective & responsive (alert + contain + remediate)' }
     ]
   },
   // {
@@ -418,9 +424,9 @@ export const presentationData = [
       }
     ],
     summary: [
-      { label: 'Clean records', value: '4,928' },
-      { label: 'Training split', value: '3,942 (80%)' },
-      { label: 'Test split', value: '986 (20%)' }
+      { label: 'Clean records', value: '4,989' },
+      { label: 'Training split', value: '3,991 (80%)' },
+      { label: 'Test split', value: '998 (20%)' }
     ]
   },
   {
@@ -532,7 +538,7 @@ export const presentationData = [
         num: '1',
         title: 'Dataset Preparation',
         items: [
-          'Load final_merged_dataset.jsonl: 738 records, 590 train, 148 test',
+          'Load final_merged_dataset.jsonl: 4,989 records, 3,991 train, 998 test',
           'Each alert becomes a structured natural-language context block',
           'Formatted as 3-turn chat: system prompt, user alert, assistant JSON'
         ]
@@ -590,7 +596,7 @@ export const presentationData = [
     rows: [
       { model: 'LLaMA 3.1 8B (Zero-Shot)', accuracy: '86.01%', f1: '0.908', tpRecall: '0.937', fpRecall: '0.766', parseErrors: '61 / 986' },
       { model: 'Phi-3.5-mini', accuracy: '88.03%', f1: '0.9187', tpRecall: '0.9737', fpRecall: '0.7866', parseErrors: '88 / 986' },
-      { model: 'Gemma-3-27B', accuracy: '96.62%', f1: '0.9621', tpRecall: '0.9792', fpRecall: '0.9600', parseErrors: 'N/A' },
+      { model: 'Gemma-3-27B', accuracy: '96.62%', f1: '0.9621', tpRecall: '0.9792', fpRecall: '0.9600', parseErrors: '20 / 986' },
       { model: 'LLaMA 3.1 8B', accuracy: '99.39%', f1: '0.9939', tpRecall: '0.9919', fpRecall: '0.9959', parseErrors: '6 / 986', winner: true }
     ],
     takeaways: [
@@ -803,16 +809,16 @@ export const presentationData = [
     ],
     futures: [
       {
-        title: 'Continuous Learning Loop',
-        desc: 'Periodic retraining using analyst feedback to adapt to environment-specific patterns.'
+        title: 'Stage 2 Fine-Tuning & Dataset Collection',
+        desc: 'Fine-tune the second phase deep analysis LLM on curated alert-analysis pairs to improve accuracy and reduce latency, with a dedicated data collection pipeline to build the required training dataset.'
       },
       {
         title: 'SOAR Integration',
         desc: 'Automated execution of containment actions via platforms like Shuffle or TheHive.'
       },
       {
-        title: 'Autonomous SOC Tier',
-        desc: 'Fully autonomous Tier-1 layer for low-risk, high-confidence threat categories.'
+        title: 'LLM Agent for Automated Response',
+        desc: 'Transform the second LLM into an autonomous agent that interprets analysis outputs and executes response commands (e.g., firewall blocks, host isolation) with human approval.'
       }
     ],
     quote: 'The answer to alert fatigue is a system that reads every alert with the same attention a senior analyst would.'
